@@ -1,10 +1,9 @@
-export class Todo{
-    public id?: number;
-    public title?: string;
-    public date?: string;
-    public time?: string;
-    public description?: string;
-    public isDone: boolean = false;
-    public alarmOn: boolean = false;
-    
+export interface Todo {
+    id?:number;
+    title:string;
+    date:string;
+    time:string;
+    description:string;
+    isDone:boolean;
+    reminder:boolean;
 }

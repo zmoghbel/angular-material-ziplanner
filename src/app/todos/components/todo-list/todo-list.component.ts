@@ -1,29 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { Todo } from '../../models/todo';
-
-const todos: Todo[] = [
-  {
-    id: 1,
-    title: 'Doctors Appointment',
-    date: 'May 5th at 2:30pm',
-    isDone: false,
-    alarmOn: true,
-  },
-  {
-    id: 2,
-    title: 'Meeting at School',
-    date: 'May 6th at 1:30pm',
-    isDone: false,
-    alarmOn: true,
-  },
-  {
-    id: 3,
-    title: 'Food Shopping',
-    date: 'May 7th at 12:30pm',
-    isDone: false,
-    alarmOn: false,
-  },
-];
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -32,12 +10,19 @@ const todos: Todo[] = [
 })
 export class TodoListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'title', 'date', 'isDone','alarmOn'];
-  dataSource = todos;
+  todos: Todo[] = [];
 
-  constructor() { }
+  public displayedColumns: string[] = ['id', 'title', 'date','time', 'isDone','reminder'];
+  public dataSource = new MatTableDataSource<Todo>();
+
+  constructor(private todoService: TodoService) { }
 
   ngOnInit(): void {
+    this.getTodos();
+  }
+
+  getTodos(){
+    this.todoService.getTodos().subscribe((todo)=>(this.dataSource.data = todo));
   }
 
 }

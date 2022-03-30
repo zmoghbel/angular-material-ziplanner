@@ -1,0 +1,71 @@
+{
+  "todos": [
+    {
+      "title": "check system update",
+      "description": "",
+      "date": "",
+      "time": "",
+      "reminder": true,
+      "isDone": true,
+      "id": 4
+    },
+    {
+      "title": "Learn Redux/NGRX",
+      "description": "",
+      "date": "",
+      "time": "",
+      "reminder": true,
+      "isDone": false,
+      "id": 5
+    },
+    {
+      "isDone": true,
+      "reminder": false,
+      "title": "Go Shopping",
+      "description": "i want to go shopping with my sister",
+      "date": "2021/3/9",
+      "time": "12:00",
+      "id": 6
+    },
+    {
+      "title": "meting with mohammad ",
+      "description": "",
+      "date": "2021-05-26",
+      "time": "",
+      "reminder": true,
+      "isDone": false,
+      "id": 11
+    },
+    {
+      "isDone": false,
+      "reminder": true,
+      "title": "call zahra and noora",
+      "description": "",
+      "date": "2021-07-03",
+      "time": "10:00",
+      "id": 13
+    },
+    {
+      "isDone": false,
+      "reminder": true,
+      "title": "NGRX",
+      "description": "",
+      "date": "2021-07-04",
+      "id": 14
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@admin.com",
+      "isadmin": true
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "email": "user@user.com",
+      "isadmin": false
+    }
+  ]
+}
