@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { TodoListComponent } from './todos/components/todo-list/todo-list.component';
 import { HttpClientModule} from "@angular/common/http";
+import { TodoAddComponent } from './todos/components/todo-add/todo-add.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,14 +19,17 @@ import { HttpClientModule} from "@angular/common/http";
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    TodoListComponent
+    TodoListComponent,
+    TodoAddComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

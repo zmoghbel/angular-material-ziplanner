@@ -1,0 +1,27 @@
+
+<form 
+  [formGroup]="todoAddForm" 
+  class="form-container"
+  (ngSubmit)="submit()">
+  <div>
+    <section class="example-section">
+    <mat-form-field class="add-fields">
+      <input matInput placeholder="Title" formControlName="title">
+    </mat-form-field>
+  
+    <mat-form-field class="add-fields">
+      <input matInput placeholder="Date" formControlName="date">
+    </mat-form-field>
+
+    <mat-form-field class="add-fields">
+      <input matInput placeholder="Time" formControlName="time">
+    </mat-form-field>
+    
+    <mat-checkbox class="add-fields" formControlName="reminder">Reminder</mat-checkbox>
+
+    <button mat-raised-button color="accent">Add new todo</button>
+  
+  </section>
+  </div>
+</form>
+

@@ -24,4 +24,24 @@ export class TodoService {
      getTodos(): Observable<Todo[]>{
       return this.httpClient.get<Todo[]>(this.apiUrl);
     }
+    
+    getTodo(todoId: number): Observable<Todo> {
+      const url = `${this.apiUrl}/${todoId}`;
+      return this.httpClient.get<Todo>(url);
+    }
+
+    deleteTodo(todoId: number ) : Observable<Todo>{
+        const url = `${this.apiUrl}/${todoId}`;
+        return this.httpClient.delete<Todo>(url);
+    }
+  
+    updateTodo(todoId: string | number, changes: Partial<Todo>): Observable<Todo>{
+        const url = `${this.apiUrl}/${todoId}`;
+        return this.httpClient.put<Todo>(url, changes, httpOptions);
+    }
+  
+    addTodo(todo: Todo) : Observable<Todo>{
+        return this.httpClient.post<Todo>(this.apiUrl, todo, httpOptions);
+    }
+
 }

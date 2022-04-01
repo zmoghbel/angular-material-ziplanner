@@ -12,7 +12,7 @@ export class TodoListComponent implements OnInit {
 
   todos: Todo[] = [];
 
-  public displayedColumns: string[] = ['id', 'title', 'date','time', 'isDone','reminder'];
+  public displayedColumns: string[] = ['id', 'title', 'date','time', 'isDone','reminder','actions'];
   public dataSource = new MatTableDataSource<Todo>();
 
   constructor(private todoService: TodoService) { }
@@ -23,6 +23,15 @@ export class TodoListComponent implements OnInit {
 
   getTodos(){
     this.todoService.getTodos().subscribe((todo)=>(this.dataSource.data = todo));
+  }
+
+  editTodo(todo:Todo){}
+
+  deleteTodo(todoId: number){}
+
+  addTodo(todo : Todo){
+    this.todoService.addTodo(todo).subscribe((todo) => (this.todos.push(todo)));
+    this.getTodos();
   }
 
 }

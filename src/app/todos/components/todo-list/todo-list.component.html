@@ -1,3 +1,4 @@
+
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -29,6 +30,17 @@
     <td mat-cell *matCellDef="let element"> {{element.reminder}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+        <a (click)="editTodo(element)">Edit</a> |
+        <a (click)="deleteTodo(element.id)">Delete</a>
+    </td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<span class="sapce-sapn"></span>
+
+<app-todo-add (onAddTodo)="addTodo($event)"></app-todo-add>

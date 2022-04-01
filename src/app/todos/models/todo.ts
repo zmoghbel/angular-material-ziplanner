@@ -3,7 +3,7 @@ export interface Todo {
     title:string;
     date:string;
     time:string;
-    description:string;
+    description:string | null;
     isDone:boolean;
     reminder:boolean;
 }
