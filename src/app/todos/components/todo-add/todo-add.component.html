@@ -1,9 +1,9 @@
-
-<form 
+<h3 mat-dialog-title>Add New Todo</h3>
+<div mat-dialog-content>
+<!--<form 
   [formGroup]="todoAddForm" 
   class="form-container"
   (ngSubmit)="submit()">
-  <div>
     <section class="example-section">
     <mat-form-field class="add-fields">
       <input matInput placeholder="Title" formControlName="title">
@@ -22,6 +22,38 @@
     <button mat-raised-button color="accent">Add new todo</button>
   
   </section>
-  </div>
-</form>
+  
+</form>-->
+<form [formGroup]="todoAddForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input formControlName="title" matInput placeholder="Title">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date</mat-label>
+    <input formControlName="date" matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Time</mat-label>
+    <input formControlName="time" matInput placeholder="Time">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea formControlName="description" matInput></textarea>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="reminder" class="add-fields">Reminder</mat-checkbox>
+  <mat-checkbox formControlName="isDone" class="add-fields">Todo Done</mat-checkbox>
+  </form>
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+  <button mat-raised-button color="warn" mat-dialog-close>close</button>
+  <button mat-raised-button color="primary" (click)="addTodo()">{{actionBtn}}</button>
+</div>
 

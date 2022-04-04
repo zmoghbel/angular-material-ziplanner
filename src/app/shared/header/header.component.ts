@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import { TodoAddComponent } from 'src/app/todos/components/todo-add/todo-add.component';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+  openDialog() {
+    this.dialog.open(TodoAddComponent, {
+      width:'30%'
+    }).afterClosed().subscribe(val=>{
+      if(val==='save'){
+        //this.getTodos();
+      }
+    })
+  }
 
   ngOnInit(): void {
   }

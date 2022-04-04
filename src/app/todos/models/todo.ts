@@ -1,9 +1,9 @@
-export interface Todo {
+export class Todo {
     id?:number;
-    title:string;
-    date:string;
-    time:string;
-    description:string | null;
-    isDone:boolean;
-    reminder:boolean;
+    title?:string;
+    date?:string;
+    time?:string;
+    description?:string | null;
+    isDone?:boolean;
+    reminder?:boolean;
 }
