@@ -13,12 +13,8 @@ export class HeaderComponent implements OnInit {
 
   openDialog() {
     this.dialog.open(TodoAddComponent, {
-      width:'30%'
-    }).afterClosed().subscribe(val=>{
-      if(val==='save'){
-        //this.getTodos();
-      }
-    })
+      width:'300px'
+    });
   }
 
   ngOnInit(): void {

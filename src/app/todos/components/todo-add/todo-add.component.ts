@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { Todo } from '../../models/todo';
 import { TodoService } from '../../services/todo.service';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { TodoState } from '../../store/todo.reducer';
+import * as fromActions from '../../store/todo.actions';
+import { Update } from '@ngrx/entity';
 
 
 @Component({
@@ -12,15 +16,14 @@ import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 })
 export class TodoAddComponent implements OnInit {
 
-  @Output() onAddTodo: EventEmitter<Todo> = new EventEmitter();
   todoAddForm !: FormGroup;
   actionBtn: string = "Save";
 
   constructor(
     private formBuilder: FormBuilder,
-    private todoService: TodoService,
     @Inject(MAT_DIALOG_DATA) public editTodo: Todo,
-    private matRef: MatDialogRef<TodoAddComponent>
+    private matRef: MatDialogRef<TodoAddComponent>,
+    protected store: Store<TodoState>
   ) {}
 
   ngOnInit() {
@@ -48,56 +51,28 @@ export class TodoAddComponent implements OnInit {
   addTodo(){
     if(!this.editTodo){
       if(this.todoAddForm.valid){
-        this.todoService.addTodo(this.todoAddForm.value)
-        .subscribe({
-          next:(res)=>{
-            alert("New todo added");
-            this.todoAddForm.reset();
-            this.matRef.close('save');
-          },
-          error:()=>{
-            alert("Error while adding new todo")
-          }
-        })
+        this.store.dispatch(fromActions.addTodo({
+          todo: this.todoAddForm.value
+        }));
+        this.matRef.close('save');
+    
+        this.todoAddForm = {} as FormGroup ;
       }
     } else {
       this.updateTodo();
     }
+
   }
   
 
   updateTodo(){
-    this.todoService.EditTodo(this.todoAddForm.value, this.editTodo.id)
-    .subscribe({
-      next:(res)=>{
-        alert("Todo Updated Successfully");
-        this.todoAddForm.reset();
-        this.matRef.close('update');
-      },
-      error:()=>{
-        alert("Error while updating the todo")
-      }
-    })
-  }
-  /*
-  submit() {
-    let values = this.todoAddForm.value;
-
-    if(!values['title']){
-      alert("Please Enter title of Todo: ");
-      return;
+    const update:Update<Todo> ={
+      id: this.editTodo.id,
+      changes: this.todoAddForm.value
     }
 
-    const newTodo: Todo = {
-      title : values['title'],
-      date: values['date'],
-      time: values['time'],
-      description: null,
-      reminder: values['reminder'],
-      isDone: false 
-    };
-
-    this.onAddTodo.emit(newTodo);
-  }*/
-
+    this.store.dispatch(fromActions.updateTodo({todo: update}));
+    this.matRef.close('update');
+    this.todoAddForm = {} as FormGroup ;
+  }
 }
