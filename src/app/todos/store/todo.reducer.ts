@@ -16,7 +16,7 @@ export const adapter: EntityAdapter<Todo> = createEntityAdapter<Todo>();
 export const initialState: TodoState = adapter.getInitialState({
   // additional entity state properties
   error: null,
-  selectedTodo: <Todo>{}
+  selectedTodo: {}
 });
 
 

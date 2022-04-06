@@ -8,4 +8,3 @@ export const selectedTodo = createSelector(
     selectTodoState,
     (state: TodoState) => state.selectedTodo
   );
-

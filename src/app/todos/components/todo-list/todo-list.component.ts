@@ -6,6 +6,11 @@ import { Todo } from '../../models/todo';
 import { TodoService } from '../../services/todo.service';
 import {MatDialog} from '@angular/material/dialog';
 import { TodoAddComponent } from '../todo-add/todo-add.component';
+import { Store } from '@ngrx/store';
+import * as fromActions from '../../store/todo.actions';
+import { TodoState } from '../../store/todo.reducer';
+import { Observable, of } from 'rxjs';
+import * as TodoStoreSelectors from '../../store/todo.selectors';
 
 @Component({
   selector: 'app-todo-list',
@@ -22,25 +27,23 @@ export class TodoListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private todoService: TodoService, public dialog: MatDialog) { }
+  constructor(
+    private todoService: TodoService,
+    public dialog: MatDialog,
+    private store: Store<TodoState>) { }
 
   ngOnInit(): void {
-    this.getTodos();
-  }
+    //this.store.dispatch(fromActions.loadTodoList());
+    //this.getTodos();
 
-  getTodos(){
-    //this.todoService.getTodos().subscribe((todo)=>(this.dataSource.data = todo));
-    this.todoService.getTodos()
-    .subscribe({
-      next:(res)=>{
-        this.dataSource.data = res;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      error:(err)=>{
-        alert("Error while fetching records!!!")
+    this.store.dispatch(fromActions.loadTodoList());
+    this.store.select(TodoStoreSelectors.selectTodoList).subscribe(
+      todos => 
+      {
+        this.todos = todos;
+        this.dataSource.data = todos;
       }
-    })
+  );
   }
 
   applyFilter(event: Event) {
@@ -58,27 +61,18 @@ export class TodoListComponent implements OnInit {
       data: todo
     }).afterClosed().subscribe(val=>{
       if(val==='update'){
-        this.getTodos();
+        //this.getTodos();
       }
     })
   }
 
   deleteTodo(todoId: number){
-    this.todoService.deleteTodo(todoId)
-    .subscribe({
-      next:(res)=>{
-        alert("Todo deleted Successfully");
-        this.getTodos();
-      },
-      error:()=>{
-        alert("Error while deleting the records!!!")
-      }
-    })
+    
   }
 
   addTodo(todo : Todo){
     this.todoService.addTodo(todo).subscribe((todo) => (this.todos.push(todo)));
-    this.getTodos();
+    //this.getTodos();
   }
 
 }

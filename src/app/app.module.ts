@@ -8,19 +8,20 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { TodoListComponent } from './todos/components/todo-list/todo-list.component';
 import { HttpClientModule} from "@angular/common/http";
-import { TodoAddComponent } from './todos/components/todo-add/todo-add.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import { environment } from '../environments/environment';
+import { TodosModule } from '../app/todos/todos.module';
+import { EffectsModule } from '@ngrx/effects';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
-    TodoListComponent,
-    TodoAddComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -28,8 +29,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    TodosModule,
     FormsModule,
-    ReactiveFormsModule
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
